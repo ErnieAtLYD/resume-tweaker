@@ -1,55 +1,47 @@
-'use server'
+"use server";
 
-import OpenAI from 'openai'
+import OpenAI from "openai";
+import {
+  GET_OPTIMIZED_RESUME_PROMPT,
+  GET_COVER_LETTER_PROMPT,
+} from "@/lib/prompts";
 
 const openai = new OpenAI({
-  apiKey: process.env.OPENAI_API_KEY
-})
+  apiKey: process.env.OPENAI_API_KEY,
+});
 
-export async function optimizeResumeAndGenerateCoverLetter(resume: string, jobDescription: string) {
+export async function optimizeResumeAndGenerateCoverLetter(
+  resume: string,
+  jobDescription: string
+) {
   try {
-    const optimizePrompt = `
-      Given the following resume and job description, optimize the resume to better match the job requirements:
-
-      Resume:
-      ${resume}
-
-      Job Description:
-      ${jobDescription}
-
-      Please provide an optimized version of the resume.
-    `
-
-    const coverLetterPrompt = `
-      Given the following resume and job description, generate a cover letter:
-
-      Resume:
-      ${resume}
-
-      Job Description:
-      ${jobDescription}
-
-      Please write a professional cover letter tailored to this job opportunity.
-    `
-
     const [optimizeResponse, coverLetterResponse] = await Promise.all([
       openai.chat.completions.create({
         model: "gpt-3.5-turbo",
-        messages: [{ role: "user", content: optimizePrompt }],
+        messages: [
+          {
+            role: "user",
+            content: GET_OPTIMIZED_RESUME_PROMPT(resume, jobDescription),
+          },
+        ],
       }),
       openai.chat.completions.create({
         model: "gpt-3.5-turbo",
-        messages: [{ role: "user", content: coverLetterPrompt }],
-      })
-    ])
+        messages: [
+          {
+            role: "user",
+            content: GET_COVER_LETTER_PROMPT(resume, jobDescription),
+          },
+        ],
+      }),
+    ]);
 
-    const optimizedResume = optimizeResponse.choices[0]?.message?.content || ''
-    const coverLetter = coverLetterResponse.choices[0]?.message?.content || ''
+    const optimizedResume = optimizeResponse.choices[0]?.message?.content || "";
+    const coverLetter = coverLetterResponse.choices[0]?.message?.content || "";
 
-    return { optimizedResume, coverLetter }
+    return { optimizedResume, coverLetter };
   } catch (error) {
-    console.error('Error in optimizeResumeAndGenerateCoverLetter:', error)
-    throw error
+    console.error("Error in optimizeResumeAndGenerateCoverLetter:", error);
+    throw error;
   }
 }
-
