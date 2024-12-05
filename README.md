@@ -1,6 +1,6 @@
 # Resume Analysis Application
 
-A modern web application built with Next.js 14, TypeScript, and Tailwind CSS that helps users analyze and compare resumes with job descriptions using AI.
+A smart career tool that helps users optimize their resumes for specific job applications by leveraging AI to provide professional feedback and suggestions for improvement.
 
 ## Features
 
