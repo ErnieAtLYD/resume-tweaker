@@ -4,7 +4,7 @@ import { useState } from 'react'
 import { ResumeInput } from '@/components/ResumeInput'
 import { JobDescriptionInput } from '@/components/JobDescriptionInput'
 import { Results } from '@/components/Results'
-import { Button } from '@/components/ui/button'
+import ResumeUpdater from '@/components/resume-updater'
 
 export default function Home() {
   const [step, setStep] = useState(1)
