@@ -20,10 +20,6 @@ export const ResumeInput = ({
     [setResume]
   );
 
-  const handleNextClick = useCallback(() => {
-    onNext();
-  }, [onNext]);
-
   const loadSampleData = async () => {
     try {
       const response = await fetch("/api/sample-resume");
