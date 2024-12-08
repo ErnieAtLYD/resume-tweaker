@@ -15,8 +15,6 @@ export async function optimizeResumeAndGenerateCoverLetter(
   jobDescription: string
 ) {
   try {
-    console.log("Optimizing resume and generating cover letter...");
-    console.info(GET_OPTIMIZED_RESUME_PROMPT(resume, jobDescription));
     const [optimizeResponse, coverLetterResponse] = await Promise.all([
       openai.chat.completions.create({
         model: "gpt-3.5-turbo",
