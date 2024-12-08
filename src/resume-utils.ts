@@ -4,7 +4,7 @@ export function updateResume(resume: string, jobDescription: string): string {
   // This might involve natural language processing or AI techniques.
 
   // For this example, we'll just append a simple note to the resume
-  const updatedResume = `
+  return `
 ${resume}
 
 Updated for job description:
@@ -12,7 +12,5 @@ ${jobDescription}
 
 Note: This resume has been tailored to match the above job description.
   `.trim()
-
-  return updatedResume
 }
 
