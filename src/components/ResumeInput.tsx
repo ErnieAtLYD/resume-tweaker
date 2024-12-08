@@ -8,20 +8,28 @@ interface ResumeInputProps {
   onNext: () => void;
 }
 
-export const ResumeInput = ({ resume, setResume, onNext }: ResumeInputProps) => {
-
-  const handleInputChange = useCallback((e: React.ChangeEvent<HTMLTextAreaElement>) => {
-    setResume(e.target.value)
-  }, [setResume])
+export const ResumeInput = ({
+  resume,
+  setResume,
+  onNext,
+}: ResumeInputProps) => {
+  const handleInputChange = useCallback(
+    (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+      setResume(e.target.value);
+    },
+    [setResume]
+  );
 
   const handleNextClick = useCallback(() => {
-    onNext()
-  }, [onNext])
+    onNext();
+  }, [onNext]);
 
   const loadSampleData = async () => {
     try {
       const response = await fetch("/api/sample-resume");
-      if (!response.ok) throw new Error("Failed to load sample data");
+      if (!response.ok) {
+        throw new Error("Failed to load sample data");
+      }
       const text = await response.text();
       setResume(text);
     } catch (error) {
@@ -34,7 +42,7 @@ export const ResumeInput = ({ resume, setResume, onNext }: ResumeInputProps) => 
   return (
     <div className="container mx-auto p-4 relative min-h-screen">
       {isDevelopment && (
-        <Button 
+        <Button
           onClick={loadSampleData}
           className="absolute top-4 right-4"
           variant="outline"
@@ -54,4 +62,4 @@ export const ResumeInput = ({ resume, setResume, onNext }: ResumeInputProps) => 
       </Button>
     </div>
   );
-}
+};
