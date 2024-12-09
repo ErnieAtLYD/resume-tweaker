@@ -3,7 +3,7 @@
 import { useState } from 'react'
 import { Button } from '@/components/ui/button'
 import { optimizeResumeAndGenerateCoverLetter } from '../actions'
-import { generateSinglePDF, generateCombinedPDF } from '@/lib/pdf'
+import { downloadPDF } from '@/lib/pdf'
 import { DocumentSection } from './results/DocumentSection'
 import { HiddenMarkdownContent } from './results/HiddenMarkdownContent'
 
@@ -44,35 +44,40 @@ export function Results({
     }
   }
 
-  const handleDownloadResume = async () => {
-    try {
-      await generateSinglePDF({
-        content: optimizedResume,
-        filename: 'optimized-resume.pdf'
-      })
-    } catch (error) {
-      console.error('Error generating resume PDF:', error)
-    }
+const handleDownloadResume = async () => {
+  try {
+    await downloadPDF({
+      content: optimizedResume,
+      filename: 'optimized-resume.pdf',
+    });
+  } catch (error) {
+    console.error('Error generating resume PDF:', error);
   }
+};
 
-  const handleDownloadCoverLetter = async () => {
-    try {
-      await generateSinglePDF({
-        content: coverLetter,
-        filename: 'cover-letter.pdf'
-      })
-    } catch (error) {
-      console.error('Error generating cover letter PDF:', error)
-    }
+const handleDownloadCoverLetter = async () => {
+  try {
+    await downloadPDF({
+      content: coverLetter,
+      filename: 'cover-letter.pdf',
+    });
+  } catch (error) {
+    console.error('Error generating cover letter PDF:', error);
   }
+};
 
-  const handleDownloadCombined = async () => {
-    try {
-      await generateCombinedPDF(optimizedResume, coverLetter)
-    } catch (error) {
-      console.error('Error generating combined PDF:', error)
-    }
+const handleDownloadCombined = async () => {
+  try {
+    await downloadPDF({
+      content: optimizedResume,
+      additionalContent: coverLetter,
+      filename: 'resume-and-cover-letter.pdf',
+      isCombined: true,
+    });
+  } catch (error) {
+    console.error('Error generating combined PDF:', error);
   }
+};
 
   return (
     <div className="space-y-4">
