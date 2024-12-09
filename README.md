@@ -4,9 +4,9 @@ A smart career tool that helps users optimize their resumes for specific job app
 
 ## Features
 
-- Upload and parse resume documents (PDF support)
+- Upload and parse resume documents (Markdown support)
 - Input job descriptions
-- AI-powered resume analysis and compatibility scoring
+- AI-powered resume optimization and cover letter generation
 - Section-by-section resume breakdown
 - Detailed feedback and improvement suggestions
 - Modern, responsive user interface
@@ -18,7 +18,7 @@ A smart career tool that helps users optimize their resumes for specific job app
 - **Language**: TypeScript
 - **Styling**: Tailwind CSS
 - **AI Integration**: OpenAI API
-- **PDF Processing**: pdf-parse
+- **PDF Processing**: html2canvas, jsPDF
 - **Font**: Geist Font Family
 - **Deployment**: Vercel
 
@@ -43,7 +43,7 @@ git clone [repository-url]
 pnpm install
 ```
 
-3. Create a `.env.local` file and add your environment variables:
+3. Create a `.env.local` file in the root directory and add your environment variables:
 
 ```bash
 OPENAI_API_KEY=your_api_key_here
@@ -55,7 +55,7 @@ OPENAI_API_KEY=your_api_key_here
 pnpm dev
 ```
 
-5. Open the application in your browser: [http://localhost:3000](http://localhost:3000)
+5. Open the application in your browser at [http://localhost:3000](http://localhost:3000)
 
 ## Project Structure
 ```
@@ -94,9 +94,9 @@ pnpm dev
 
 ## Core Components
 
-- **ResumeInput**: Handles resume file uploads and text input
+- **ResumeInput**: Handles resume text input and loading sample data
 - **JobDescriptionInput**: Manages job description text input
-- **Results**: Displays AI analysis results
+- **Results**: Displays optimized resume and cover letter, and provides download options
 - **DocumentSection**: Renders individual sections of the analysis
 - **HiddenMarkdownContent**: Manages markdown content display
 

@@ -29,6 +29,9 @@ export function Results({
   const [isLoading, setIsLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
 
+  /**
+   * Handles the optimization of the resume and generation of the cover letter.
+   */
   const handleOptimize = async () => {
     setIsLoading(true)
     setError(null)
@@ -44,6 +47,9 @@ export function Results({
     }
   }
 
+/**
+ * Downloads the optimized resume as a PDF.
+ */
 const handleDownloadResume = async () => {
   try {
     await downloadPDF({
@@ -55,6 +61,9 @@ const handleDownloadResume = async () => {
   }
 };
 
+/**
+ * Downloads the cover letter as a PDF.
+ */
 const handleDownloadCoverLetter = async () => {
   try {
     await downloadPDF({
@@ -66,6 +75,9 @@ const handleDownloadCoverLetter = async () => {
   }
 };
 
+/**
+ * Downloads a combined PDF of the optimized resume and cover letter.
+ */
 const handleDownloadCombined = async () => {
   try {
     await downloadPDF({
