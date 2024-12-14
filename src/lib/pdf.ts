@@ -75,6 +75,7 @@ export const generateSinglePDF = async ({
  * @param optimizedResume - The optimized resume content.
  * @param coverLetter - The cover letter content.
  */
+
 export const generateCombinedPDF = async ({
   optimizedResume,
   coverLetter,

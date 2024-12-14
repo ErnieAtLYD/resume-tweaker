@@ -53,6 +53,7 @@ export function JobDescriptionInput({
         onChange={(e) => setJobDescription(e.target.value)}
         placeholder="Paste the job description here..."
         className="h-64"
+        aria-label='Job Description'
       />
       <div className="space-x-4">
         <Button onClick={onBack} variant="outline">

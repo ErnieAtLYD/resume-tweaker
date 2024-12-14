@@ -26,6 +26,6 @@ export const DocumentSection = ({
         Download {title}
       </Button>
     </div>
-    <Textarea value={content} readOnly className="h-64" />
+    <Textarea value={content} readOnly className="h-64" aria-label={title} />
   </div>
 ) 

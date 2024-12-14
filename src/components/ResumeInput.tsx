@@ -52,6 +52,7 @@ export const ResumeInput = ({
         onChange={handleInputChange}
         placeholder="Enter your resume in markdown format..."
         className="w-full h-96 mb-4 p-2 border rounded"
+        aria-label="Resume"
       />
       <Button onClick={onNext} disabled={!resume.trim()} className="px-4 py-2">
         Next
