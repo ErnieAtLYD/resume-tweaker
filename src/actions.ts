@@ -18,6 +18,13 @@ export async function optimizeResumeAndGenerateCoverLetter(
   resume: string,
   jobDescription: string
 ) {
+  if (!resume || !resume.trim()) {
+    throw new Error("Resume is required");
+  }
+  if (!jobDescription || !jobDescription.trim()) {
+    throw new Error("Job description is required");
+  }
+
   try {
     const [optimizeResponse, coverLetterResponse] = await Promise.all([
       openai.chat.completions.create({
