@@ -17,6 +17,11 @@ interface GeneratePDFOptions {
   filename: string
 }
 
+interface GenerateCombinedPDFOptions {
+  optimizedResume: string;
+  coverLetter: string;
+}
+
 /**
  * Generates a PDF from a single content string.
  * @param content - The content to include in the PDF.
@@ -65,20 +70,15 @@ export const generateSinglePDF = async ({
   }
 }
 
-interface GenerateCombinedPDFOptions {
-  optimizedResume: string
-  coverLetter: string
-}
-
 /**
  * Generates a combined PDF from resume and cover letter content.
  * @param optimizedResume - The optimized resume content.
  * @param coverLetter - The cover letter content.
  */
 export const generateCombinedPDF = async (
-  optimizedResume: string,
-  coverLetter: string
-): Promise<void> => {
+  {optimizedResume,
+  coverLetter
+}: GenerateCombinedPDFOptions): Promise<void> => {
   const element = document.getElementById('markdown-content')
   if (!element) return
 
