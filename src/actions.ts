@@ -18,8 +18,11 @@ export async function optimizeResumeAndGenerateCoverLetter(
   resume: string,
   jobDescription: string
 ) {
-  if (!resume?.trim() || !jobDescription?.trim()) {
-    throw new Error("Resume and job description are required");
+  if (!resume || !resume.trim()) {
+    throw new Error("Resume is required");
+  }
+  if (!jobDescription || !jobDescription.trim()) {
+    throw new Error("Job description is required");
   }
 
   try {
