@@ -80,7 +80,7 @@ const handleDownloadCoverLetter = async () => {
  */
 const handleDownloadCombined = async () => {
   try {
-    await generateCombinedPDF(optimizedResume, coverLetter);
+    await generateCombinedPDF({optimizedResume, coverLetter});
   } catch (error) {
     console.error('Error generating combined PDF:', error);
   }

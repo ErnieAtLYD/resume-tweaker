@@ -17,9 +17,9 @@ interface GeneratePDFOptions {
   filename: string
 }
 
-interface GenerateCombinedPDFOptions {
-  optimizedResume: string;
-  coverLetter: string;
+interface CombinedPDFOptions {
+  optimizedResume: string
+  coverLetter: string
 }
 
 /**
@@ -75,10 +75,11 @@ export const generateSinglePDF = async ({
  * @param optimizedResume - The optimized resume content.
  * @param coverLetter - The cover letter content.
  */
-export const generateCombinedPDF = async (
-  {optimizedResume,
-  coverLetter
-}: GenerateCombinedPDFOptions): Promise<void> => {
+
+export const generateCombinedPDF = async ({
+  optimizedResume,
+  coverLetter,
+}: CombinedPDFOptions): Promise<void> => {
   const element = document.getElementById('markdown-content')
   if (!element) return
 
