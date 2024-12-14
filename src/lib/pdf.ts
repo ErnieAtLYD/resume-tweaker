@@ -115,6 +115,7 @@ export const generateCombinedPDF = async (
     console.error('Error generating combined PDF:', error)
     throw new Error('Failed to generate combined PDF')
   } finally {
-    document.body.removeChild(element)
+    if (element && element.parentNode) {
+    document.body.removeChild(element)}
   }
 } 
