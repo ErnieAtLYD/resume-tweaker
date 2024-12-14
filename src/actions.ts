@@ -6,6 +6,10 @@ import {
   GET_COVER_LETTER_PROMPT,
 } from "@/lib/prompts";
 
+if (!process.env.OPENAI_API_KEY) {
+  throw new Error("OPENAI_API_KEY is not set");
+}
+
 const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY,
 });
