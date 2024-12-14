@@ -1,4 +1,4 @@
-import { useState, useCallback, Dispatch, SetStateAction } from "react";
+import { useCallback, Dispatch, SetStateAction } from "react";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 
@@ -19,10 +19,6 @@ export const ResumeInput = ({
     },
     [setResume]
   );
-
-  const handleNextClick = useCallback(() => {
-    onNext();
-  }, [onNext]);
 
   const loadSampleData = async () => {
     try {

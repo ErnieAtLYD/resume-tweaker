@@ -3,7 +3,7 @@
 import { useState } from 'react'
 import { Button } from '@/components/ui/button'
 import { optimizeResumeAndGenerateCoverLetter } from '../actions'
-import { generateSinglePDF, generateCombinedPDF } from '@/lib/pdf'
+import { generateCombinedPDF, generateSinglePDF } from '@/lib/pdf'
 import { DocumentSection } from './results/DocumentSection'
 import { HiddenMarkdownContent } from './results/HiddenMarkdownContent'
 
@@ -29,6 +29,9 @@ export function Results({
   const [isLoading, setIsLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
 
+  /**
+   * Handles the optimization of the resume and generation of the cover letter.
+   */
   const handleOptimize = async () => {
     setIsLoading(true)
     setError(null)
@@ -44,35 +47,44 @@ export function Results({
     }
   }
 
-  const handleDownloadResume = async () => {
-    try {
-      await generateSinglePDF({
-        content: optimizedResume,
-        filename: 'optimized-resume.pdf'
-      })
-    } catch (error) {
-      console.error('Error generating resume PDF:', error)
-    }
+/**
+ * Downloads the optimized resume as a PDF.
+ */
+const handleDownloadResume = async () => {
+  try {
+    await generateSinglePDF({
+      content: optimizedResume,
+      filename: 'optimized-resume.pdf',
+    });
+  } catch (error) {
+    console.error('Error generating resume PDF:', error);
   }
+};
 
-  const handleDownloadCoverLetter = async () => {
-    try {
-      await generateSinglePDF({
-        content: coverLetter,
-        filename: 'cover-letter.pdf'
-      })
-    } catch (error) {
-      console.error('Error generating cover letter PDF:', error)
-    }
+/**
+ * Downloads the cover letter as a PDF.
+ */
+const handleDownloadCoverLetter = async () => {
+  try {
+    await generateSinglePDF({
+      content: coverLetter,
+      filename: 'cover-letter.pdf',
+    });
+  } catch (error) {
+    console.error('Error generating cover letter PDF:', error);
   }
+};
 
-  const handleDownloadCombined = async () => {
-    try {
-      await generateCombinedPDF(optimizedResume, coverLetter)
-    } catch (error) {
-      console.error('Error generating combined PDF:', error)
-    }
+/**
+ * Downloads a combined PDF of the optimized resume and cover letter.
+ */
+const handleDownloadCombined = async () => {
+  try {
+    await generateCombinedPDF(optimizedResume, coverLetter);
+  } catch (error) {
+    console.error('Error generating combined PDF:', error);
   }
+};
 
   return (
     <div className="space-y-4">

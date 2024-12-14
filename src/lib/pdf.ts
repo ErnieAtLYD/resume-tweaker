@@ -4,7 +4,12 @@ import { marked } from 'marked'
 
 const renderer = new marked.Renderer()
 
-export const parseMarkdown = (content: string) => 
+/**
+ * Parses markdown content into HTML.
+ * @param content - The markdown content to parse.
+ * @returns The parsed HTML string.
+ */
+export const parseMarkdown = (content: string) =>
   marked.parse(content, { renderer }) as string
 
 interface GeneratePDFOptions {
@@ -12,7 +17,15 @@ interface GeneratePDFOptions {
   filename: string
 }
 
-export const generateSinglePDF = async ({ content, filename }: GeneratePDFOptions): Promise<void> => {
+/**
+ * Generates a PDF from a single content string.
+ * @param content - The content to include in the PDF.
+ * @param filename - The name of the file to save the PDF as.
+ */
+export const generateSinglePDF = async ({
+  content,
+  filename,
+}: GeneratePDFOptions): Promise<void> => {
   if (!content) {
     throw new Error('No content provided')
   }
@@ -52,7 +65,15 @@ export const generateSinglePDF = async ({ content, filename }: GeneratePDFOption
   }
 }
 
-export const generateCombinedPDF = async (optimizedResume: string, coverLetter: string): Promise<void> => {
+/**
+ * Generates a combined PDF from resume and cover letter content.
+ * @param optimizedResume - The optimized resume content.
+ * @param coverLetter - The cover letter content.
+ */
+export const generateCombinedPDF = async (
+  optimizedResume: string,
+  coverLetter: string
+): Promise<void> => {
   const element = document.getElementById('markdown-content')
   if (!element) return
 
@@ -94,6 +115,7 @@ export const generateCombinedPDF = async (optimizedResume: string, coverLetter: 
     console.error('Error generating combined PDF:', error)
     throw new Error('Failed to generate combined PDF')
   } finally {
-    document.body.removeChild(element)
+    if (element && element.parentNode) {
+    document.body.removeChild(element)}
   }
 } 
