@@ -65,6 +65,11 @@ export const generateSinglePDF = async ({
   }
 }
 
+interface GenerateCombinedPDFOptions {
+  optimizedResume: string
+  coverLetter: string
+}
+
 /**
  * Generates a combined PDF from resume and cover letter content.
  * @param optimizedResume - The optimized resume content.

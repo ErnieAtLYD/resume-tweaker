@@ -13,8 +13,8 @@ export function ResumeForm({ onUpdate }: { onUpdate: (resume: string, jobDesc: s
       <Card>
         <CardHeader><CardTitle>Resume Updater</CardTitle></CardHeader>
         <CardContent>
-          <Textarea value={resume} onChange={(e) => setResume(e.target.value)} />
-          <Textarea value={jobDescription} onChange={(e) => setJobDescription(e.target.value)} />
+          <Textarea aria-label='Resume' value={resume} onChange={(e) => setResume(e.target.value)} />
+          <Textarea aria-label='Job Description' value={jobDescription} onChange={(e) => setJobDescription(e.target.value)} />
         </CardContent>
         <CardFooter>
           <Button onClick={() => onUpdate(resume, jobDescription)}>Update Resume</Button>
