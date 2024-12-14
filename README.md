@@ -18,7 +18,7 @@ A smart career tool that helps users optimize their resumes for specific job app
 - **Language**: TypeScript
 - **Styling**: Tailwind CSS
 - **AI Integration**: OpenAI API
-- **PDF Processing**: html2canvas, jsPDF
+- **PDF Generation**: html2canvas, jsPDF
 - **Font**: Geist Font Family
 - **Deployment**: Vercel
 
