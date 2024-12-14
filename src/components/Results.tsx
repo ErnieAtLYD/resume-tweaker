@@ -3,7 +3,7 @@
 import { useState } from 'react'
 import { Button } from '@/components/ui/button'
 import { optimizeResumeAndGenerateCoverLetter } from '../actions'
-import { generateSinglePDF } from '@/lib/pdf'
+import { generateCombinedPDF, generateSinglePDF } from '@/lib/pdf'
 import { DocumentSection } from './results/DocumentSection'
 import { HiddenMarkdownContent } from './results/HiddenMarkdownContent'
 
@@ -80,14 +80,7 @@ const handleDownloadCoverLetter = async () => {
  */
 const handleDownloadCombined = async () => {
   try {
-    await generateSinglePDF({
-      content: optimizedResume,
-      filename: 'optimized-resume.pdf',
-    });
-    await generateSinglePDF({
-      content: coverLetter,
-      filename: 'cover-letter.pdf',
-    });
+    await generateCombinedPDF(optimizedResume, coverLetter);
   } catch (error) {
     console.error('Error generating combined PDF:', error);
   }
