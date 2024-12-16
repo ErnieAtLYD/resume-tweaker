@@ -19,7 +19,7 @@ export const DocumentSection = ({
       <h3 className="text-lg font-semibold">{title}</h3>
       <Button
         onClick={onDownload}
-        disabled={disabled}
+        disabled={disabled} // This should be set to true during PDF generation
         variant="outline"
         size="sm"
       >
