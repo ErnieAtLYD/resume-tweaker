@@ -46,20 +46,12 @@ export function Results({
     } finally {
       setIsLoading(false)
     }
-  } finally {
-    setIsGeneratingPDF(false)
-  } finally {
-    setIsGeneratingPDF(false)
-  } finally {
-    setIsGeneratingPDF(false)
   }
 
 /**
  * Downloads the optimized resume as a PDF.
  */
 const handleDownloadResume = async () => {
-  setIsGeneratingPDF(true)
-  setIsGeneratingPDF(true)
   setIsGeneratingPDF(true)
   try {
     await generateSinglePDF({
@@ -68,6 +60,8 @@ const handleDownloadResume = async () => {
     });
   } catch (error) {
     console.error('Error generating resume PDF:', error);
+  } finally {
+    setIsGeneratingPDF(false)
   }
 };
 
@@ -75,6 +69,7 @@ const handleDownloadResume = async () => {
  * Downloads the cover letter as a PDF.
  */
 const handleDownloadCoverLetter = async () => {
+  setIsGeneratingPDF(true)
   try {
     await generateSinglePDF({
       content: coverLetter,
@@ -82,6 +77,8 @@ const handleDownloadCoverLetter = async () => {
     });
   } catch (error) {
     console.error('Error generating cover letter PDF:', error);
+  } finally {
+    setIsGeneratingPDF(false)
   }
 };
 
@@ -89,10 +86,13 @@ const handleDownloadCoverLetter = async () => {
  * Downloads a combined PDF of the optimized resume and cover letter.
  */
 const handleDownloadCombined = async () => {
+  setIsGeneratingPDF(true)
   try {
     await generateCombinedPDF({optimizedResume, coverLetter});
   } catch (error) {
     console.error('Error generating combined PDF:', error);
+  } finally {
+    setIsGeneratingPDF(false)
   }
 };
 
