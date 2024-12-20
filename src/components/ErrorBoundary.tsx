@@ -1,16 +1,51 @@
 'use client'
 
 import { useEffect } from 'react'
+import * as Sentry from '@sentry/nextjs'
 
 interface ErrorBoundaryProps {
   error: Error & { digest?: string }
   reset: () => void
 }
 
+const sanitizeError = (error: Error) => {
+  // Remove sensitive information like tokens, passwords, etc
+  const sanitizedError = {
+    name: error.name,
+    message: error.message,
+    stack: error.stack,
+    digest: (error as Error & { digest?: string }).digest
+  }
+
+  // Remove any potential sensitive patterns
+  return JSON.parse(
+    JSON.stringify(sanitizedError, (key, value) => {
+      if (typeof value === 'string') {
+        // Remove potential tokens, passwords, etc
+        return value.replace(/Bearer\s+[A-Za-z0-9-._~+/]+=*/g, '[REDACTED_TOKEN]')
+                   .replace(/password=([^&]*)/g, 'password=[REDACTED]')
+      }
+      return value
+    })
+  )
+}
+
 export const ErrorBoundary = ({ error, reset }: ErrorBoundaryProps) => {
   useEffect(() => {
-    // Log the error to an error reporting service
-    console.error('Error:', error)
+    const sanitizedError = sanitizeError(error)
+
+    if (process.env.NODE_ENV === 'production') {
+      // Send to Sentry in production
+      Sentry.captureException(error, {
+        extra: {
+          digest: sanitizedError.digest,
+          sanitizedError
+        }
+      })
+    } else {
+      // In development, still log to console but with sanitized data
+      console.error('Development Error:', sanitizedError)
+    }
   }, [error])
 
   return (
@@ -25,4 +60,4 @@ export const ErrorBoundary = ({ error, reset }: ErrorBoundaryProps) => {
       </button>
     </div>
   )
-} 
+}
