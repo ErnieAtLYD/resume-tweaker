@@ -28,6 +28,7 @@ export function Results({
 }: ResultsProps) {
   const [isLoading, setIsLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
+  const [isGeneratingPDF, setIsGeneratingPDF] = useState(false)
 
   /**
    * Handles the optimization of the resume and generation of the cover letter.
@@ -51,6 +52,7 @@ export function Results({
  * Downloads the optimized resume as a PDF.
  */
 const handleDownloadResume = async () => {
+  setIsGeneratingPDF(true)
   try {
     await generateSinglePDF({
       content: optimizedResume,
@@ -58,6 +60,8 @@ const handleDownloadResume = async () => {
     });
   } catch (error) {
     console.error('Error generating resume PDF:', error);
+  } finally {
+    setIsGeneratingPDF(false)
   }
 };
 
@@ -65,6 +69,7 @@ const handleDownloadResume = async () => {
  * Downloads the cover letter as a PDF.
  */
 const handleDownloadCoverLetter = async () => {
+  setIsGeneratingPDF(true)
   try {
     await generateSinglePDF({
       content: coverLetter,
@@ -72,6 +77,8 @@ const handleDownloadCoverLetter = async () => {
     });
   } catch (error) {
     console.error('Error generating cover letter PDF:', error);
+  } finally {
+    setIsGeneratingPDF(false)
   }
 };
 
@@ -79,10 +86,13 @@ const handleDownloadCoverLetter = async () => {
  * Downloads a combined PDF of the optimized resume and cover letter.
  */
 const handleDownloadCombined = async () => {
+  setIsGeneratingPDF(true)
   try {
     await generateCombinedPDF({optimizedResume, coverLetter});
   } catch (error) {
     console.error('Error generating combined PDF:', error);
+  } finally {
+    setIsGeneratingPDF(false)
   }
 };
 
@@ -103,13 +113,13 @@ const handleDownloadCombined = async () => {
           title="Optimized Resume"
           content={optimizedResume}
           onDownload={handleDownloadResume}
-          disabled={!optimizedResume}
+          disabled={!optimizedResume || isGeneratingPDF}
         />
         <DocumentSection
           title="Cover Letter"
           content={coverLetter}
           onDownload={handleDownloadCoverLetter}
-          disabled={!coverLetter}
+          disabled={!coverLetter || isGeneratingPDF}
         />
       </div>
 
@@ -120,9 +130,9 @@ const handleDownloadCombined = async () => {
         <Button
           onClick={handleDownloadCombined}
           className="bg-blue-600 hover:bg-blue-700"
-          disabled={!optimizedResume || !coverLetter}
+          disabled={!optimizedResume || !coverLetter || isGeneratingPDF}
         >
-          Download Combined PDF
+          {isGeneratingPDF ? 'Generating PDF...' : 'Download Combined PDF'}
         </Button>
       </div>
       
