@@ -28,6 +28,7 @@ export function Results({
 }: ResultsProps) {
   const [isLoading, setIsLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
+  const [isGeneratingPDF, setIsGeneratingPDF] = useState(false)
 
   /**
    * Handles the optimization of the resume and generation of the cover letter.
@@ -45,12 +46,21 @@ export function Results({
     } finally {
       setIsLoading(false)
     }
+  } finally {
+    setIsGeneratingPDF(false)
+  } finally {
+    setIsGeneratingPDF(false)
+  } finally {
+    setIsGeneratingPDF(false)
   }
 
 /**
  * Downloads the optimized resume as a PDF.
  */
 const handleDownloadResume = async () => {
+  setIsGeneratingPDF(true)
+  setIsGeneratingPDF(true)
+  setIsGeneratingPDF(true)
   try {
     await generateSinglePDF({
       content: optimizedResume,
@@ -103,13 +113,13 @@ const handleDownloadCombined = async () => {
           title="Optimized Resume"
           content={optimizedResume}
           onDownload={handleDownloadResume}
-          disabled={!optimizedResume}
+          disabled={!optimizedResume || isGeneratingPDF}
         />
         <DocumentSection
           title="Cover Letter"
           content={coverLetter}
           onDownload={handleDownloadCoverLetter}
-          disabled={!coverLetter}
+          disabled={!coverLetter || isGeneratingPDF}
         />
       </div>
 
@@ -120,9 +130,9 @@ const handleDownloadCombined = async () => {
         <Button
           onClick={handleDownloadCombined}
           className="bg-blue-600 hover:bg-blue-700"
-          disabled={!optimizedResume || !coverLetter}
+          disabled={!optimizedResume || !coverLetter || isGeneratingPDF}
         >
-          Download Combined PDF
+          {isGeneratingPDF ? 'Generating PDF...' : 'Download Combined PDF'}
         </Button>
       </div>
       
