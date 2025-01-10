@@ -82,14 +82,17 @@ const handleDownloadCoverLetter = async () => {
   }
 };
 
+
 /**
  * Downloads a combined PDF of the optimized resume and cover letter.
  */
 const handleDownloadCombined = async () => {
   setIsGeneratingPDF(true)
+  setError(null)
   try {
     await generateCombinedPDF({optimizedResume, coverLetter});
   } catch (error) {
+    setError('Failed to generate combined PDF. Please try again.')
     console.error('Error generating combined PDF:', error);
   } finally {
     setIsGeneratingPDF(false)
